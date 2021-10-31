@@ -1,0 +1,64 @@
+<style>
+    table,th,tr,td{
+        border: solid red;
+        border-collapse:collapse;
+    }
+    th{
+        background-color:cyan;
+    }
+</style>
+<html>
+    <h2>Group B<br>
+        Ibal Dawabsheh<br>
+        Imad Brighith<br>
+        Khalid Al-Issawy<br>
+        Mohammad Masalmah<br>
+    </h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Salary</th>
+        </tr>
+        <?php 
+        $employees=array(
+            array("name"=>"Ahmad","dep"=>"IT", "salary"=>"3000"),
+            array("name"=>"Nader","dep"=>"Sales", "salary"=>"2200"),
+            array("name"=>"Noor","dep"=>"Marketing", "salary"=>"1800"),
+            array("name"=>"Wael","dep"=>"HR", "salary"=>"2800"),
+            array("name"=>"Khalid","dep"=>"MM", "salary"=>"3500"),
+            array("name"=>"Mohammad","dep"=>"MM", "salary"=>"3500")
+        );
+        foreach($employees as $a){
+
+            echo "<tr>";
+            echo "<td>".$a['name']."</td>";
+            echo "<td>".$a['dep']."</td>";
+            echo "<td>".$a['salary']."</td>";
+            echo "<tr>";
+        }
+        
+        function getTotalSalaries($emp){
+            $total=0;
+            foreach($emp as $e){
+                $total+=$e["salary"];
+            }
+            return $total;
+        }
+
+        function getMaxSalary($emp){
+            $max=0;
+            foreach($emp as $e){
+                if($e["salary"]>$max){
+                    $max=$e["salary"];
+                }
+            }
+            return $max;
+        }
+        ?>
+    </table>
+    <?php
+    echo "Total of the salaries: ".getTotalSalaries($employees)."<br>";
+    echo "Max of the salaries: ".getMaxSalary($employees)."<br>";
+
+    ?>
