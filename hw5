@@ -1,0 +1,105 @@
+<html>
+    <?php
+    $nameError="";
+    $name="";
+    $ageError="";
+    $age="";
+    $emailError="";
+    $email="";
+    $skillsError="";
+    $skills="";
+    $country="";
+    $commentError="";
+    $comment="";
+    $ip="";
+    
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    
+        if (empty($_POST["name"]))
+            $nameError = "Name is required";
+        else
+            $name = $_POST["name"];	
+    
+        if (empty($_POST["email"]))
+            $emailError = "Email is required";
+        else {
+            $email = $_POST["email"];
+            if (!preg_match("/([\w\-]+\@[\w\-]+\.[\w\-]+)/", $email))
+                $emailError = "Invalid email format";
+            }
+        if(empty($_POST["age"]))
+            $ageError = "Age is required";
+        else
+            $age = $_POST["age"];
+
+        if(empty($_POST["skills"]))
+            $skillsError = "Skills are required";
+        else
+            $skills = $_POST["skills"];
+
+        $country = $_POST["country"];
+
+        if(empty($_POST["comment"]))
+            $commentError = "Comment is required";
+        else
+            $comment = $_POST["comment"];
+        if (empty($_POST["ip"]))
+            $ip = "Unknown";
+        else
+            $ip = $_POST["ip"];
+    
+    }
+    ?>
+    
+    <form action="<?php $_SERVER["PHP_SELF"] ?>" method="post">
+        Name: <input type="text" name="name" value="<?= $name ?>">
+        <span class="error">* <?php echo $nameError; ?></span><br>
+        Age: <input type="text" name="age" value="<?= $age ?>">
+        <span class="error">* <?php echo $ageError; ?> </span><br>
+        Email: <input type="email" name="email" value="<?= $email ?>">
+        <span class="error">* <?php echo $emailError; ?> </span><br>
+        Skills: <input type="checkbox" name="skills[]" value="Java">Java
+        <input type="checkbox" name="skills[]" value="C++">C++ 
+        <input type="checkbox" name="skills[]" value="PHP">PHP 
+        <input type="checkbox" name="skills[]" value="ASP.NET">ASP.NET 
+        <span class="error">* <?php echo $skillsError; ?> </span><br>
+        Country: <select name="country">
+            <option value="palestine" <?= $country == 'palestine' ? 'selected' : '' ?>>Palestine</option>
+            <option value="jordan" <?= $country == 'jordan' ? 'selected' : '' ?>>Jordan</option>
+            <option value="iraq" <?= $country == 'iraq' ? 'selected' : '' ?>>Iraq</option>
+            <option value="syria" <?= $country == 'syria' ? 'selected' : '' ?>>Syria</option>
+        </select><br>
+        Comment: <textarea name="comment" cols="30" rows="10" value="<?= $comment ?>"></textarea>
+        <span class="error">* <?php echo $commentError; ?> </span><br>
+        <input type="hidden" name="ip" value="<?= $_SERVER['REMOTE_ADDR'] ?>">
+        <input type="submit">
+        <input type="reset">
+
+    </form>
+    <br><br><br>
+    Your Data: 
+    <?php
+    echo "Name: ".$name."<br>";
+    echo "Age: ".$age."<br>";
+    echo "Email: ".$email."<br>";
+    echo "Skills: ";
+    if(empty($skills)) 
+    {
+        echo("");
+    } 
+    else {
+        $N=count($skills);
+        for($i=0; $i < $N; $i++)
+        {
+          echo($skills[$i] . " ");
+        }
+
+    }
+    echo "<Br>";
+    echo "Country: ".$country."<br>";
+    echo "Comment: ".$comment."<br>";
+    echo "IP: ".$ip."<br>";
+    $date = date('d-m-y h:i:s');
+    echo "Timestamp: ".$date;
+    ?>
+</html>
